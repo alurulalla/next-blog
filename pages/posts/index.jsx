@@ -1,40 +1,28 @@
+import Head from 'next/head';
+
 import AllPosts from '../../components/posts/all-posts';
+import { getAllPosts } from '../../lib/post-util';
 
-const AllPostsPage = () => {
-    const DUMMY_POSTS = [
-        {
-            slug: 'getting-started-with-nextjs',
-            image: 'getting-started-nextjs.png',
-            title: 'Getting Started with NextJS',
-            excerpt: 'NextJS is the React framework for production -it makes building fullstack React',
-            date: '2022-02-10'
-        },
-        {
-            slug: 'getting-started-with-nextjs2',
-            image: 'getting-started-nextjs.png',
-            title: 'Getting Started with NextJS',
-            excerpt: 'NextJS is the React framework for production -it makes building fullstack React',
-            date: '2022-02-10'
-        },
-        {
-            slug: 'getting-started-with-nextjs3',
-            image: 'getting-started-nextjs.png',
-            title: 'Getting Started with NextJS',
-            excerpt: 'NextJS is the React framework for production -it makes building fullstack React',
-            date: '2022-02-10'
-        },
-        {
-            slug: 'getting-started-with-nextjs4',
-            image: 'getting-started-nextjs.png',
-            title: 'Getting Started with NextJS',
-            excerpt: 'NextJS is the React framework for production -it makes building fullstack React',
-            date: '2022-02-10'
-        }
-    ];
-
+const AllPostsPage = (props) => {
     return (
-        <AllPosts posts={DUMMY_POSTS} />
+        <>
+            <Head>
+                <title>All Posts</title>
+                <meta name='description' content='A list of all programming related tutorials' />
+            </Head>
+            <AllPosts posts={props.posts} />
+        </>
     )
 }
 
-export default AllPostsPage
+export function getStaticProps() {
+    const allPosts = getAllPosts();
+
+    return {
+        props: {
+            posts: allPosts
+        }
+    }
+}
+
+export default AllPostsPage;
